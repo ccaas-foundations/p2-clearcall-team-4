@@ -9,4 +9,7 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 # Generated transcripts
-../transcripts/
+transcripts/
+# Idea folder
+*
+!.gitignore
