@@ -1,6 +1,6 @@
 import random
 
-counter = 0
+counter = 2
 while counter < 1:
     generatedId = random.randint(0,100)
     print(generatedId)
