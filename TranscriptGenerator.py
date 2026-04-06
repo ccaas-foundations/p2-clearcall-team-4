@@ -1,42 +1,62 @@
+import json
 import random
 import uuid
+from dataclasses import dataclass
+from typing import Optional, List
 from datetime import datetime, timezone, timedelta
+
+@dataclass
+class CallTranscript:
+    callId: str
+    startTime: datetime
+    endTime: datetime
+    callCategory: str
+    ivrContained: bool
+    escalatedToAgent: bool
+    agentId: Optional[str]
+    ivrPath: List[str]
 
 counter = 0
 while counter < 5:
-    generatedId = uuid.uuid4()
-    startTime = datetime.now(tz=timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-    random_seconds = random.randint(0, 86399)
-    startTime = startTime + timedelta(seconds=random_seconds)
-    random_seconds = random.randint(120, 300)
-    endTime = startTime + timedelta(seconds=random_seconds)
-    startTime = startTime.strftime('%Y-%m-%dT%H:%M:%SZ')
-    endTime = endTime.strftime('%Y-%m-%dT%H:%M:%SZ')
+    generated_id = str(uuid.uuid4())
 
-    callCategory = random.randint(1,100)
-    ivrContainment = random.randint(1,100)
-    if callCategory>90:
-        callCategory = "GENERAL"
-    elif callCategory>75:
-        callCategory = "SALES"
-    elif callCategory>40:
-        callCategory = "TECHNICAL"
+    # Generate random start time within today (UTC)
+    start_time = datetime.now(tz=timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    start_time += timedelta(seconds=random.randint(0, 86399))
+
+    # Generate duration (2–5 minutes)
+    end_time = start_time + timedelta(seconds=random.randint(120, 300))
+
+    start_time = start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+    end_time = end_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    call_category = random.choices(
+        ["GENERAL", "SALES", "TECHNICAL", "BILLING"],
+        weights=[10, 15, 35, 40],
+        k=1
+    )[0]
+
+    ivr_contained = random.randint(1,100)
+    if call_category == "SALES" or call_category =="TECHNICAL":
+        ivr_contained= False
+        escalated_to_agent = True
+    elif ivr_contained<61:
+        ivr_contained = True
+        escalated_to_agent = False
     else:
-        callCategory = "BILLING"
+        ivr_contained = False
+        escalated_to_agent = True
 
-    ivrContainment = random.randint(1,100)
-    if callCategory == "SALES" or callCategory =="TECHNICAL":
-        ivrContainment="false"
-        escalatedToAgent = "true"
-    elif ivrContainment<61:
-        ivrContainment = "true"
-        escalatedToAgent = "false"
-    else:
-        ivrContainment = "false"
-        escalatedToAgent = "true"
-
-    print(generatedId)
-    scriptFile =open(f"./transcripts/{generatedId}.txt",'w')
-    scriptFile.write(f"\n    \"callId\": \"{generatedId}\",\n    \"startTime\": \"{startTime}\",\n    \"endTime\": \"2026-03-17T09:44:35Z\",\n    \"callCategory\": \"{callCategory}\",\n    \"ivrContained\": {ivrContainment},\n    \"escalatedToAgent\": {escalatedToAgent},\n    \"agentId\": null,\n    \"ivrPath\": [\"WELCOME\", \"BILLING\",\"ACCOUNT_LOOKUP\", \"RESOLVED\"]\n")
-    scriptFile.close()
+    record = CallTranscript(
+        callId=generated_id,
+        startTime=start_time,
+        endTime=end_time,
+        callCategory=call_category,
+        ivrContained=ivr_contained,
+        escalatedToAgent=escalated_to_agent,
+        agentId=None,
+        ivrPath=["WELCOME", "BILLING", "ACCOUNT_LOOKUP", "RESOLVED"]
+    )
+    with open(f'transcripts/{generated_id}.json', 'w') as f:
+        json.dump(record.__dict__, f, indent=4)
     counter+=1
