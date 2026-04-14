@@ -1,5 +1,4 @@
 from model import CallRecord
-from dataclasses import dataclass
 from datetime import datetime
 
 def transform_transcript(transcript: dict) -> CallRecord:
