@@ -24,46 +24,43 @@ class CassandraLoader:
                 call_date,
                 start_time,
                 call_id,
-                end_time,
                 call_category,
                 ivr_contained,
-                escalated_to_agent,
+                escalated,
                 agent_id,
-                duration_seconds,
-                ivr_path
+                duration_seconds
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, [
             record.call_date,
             record.start_time,
             record.call_id,
-            record.end_time,
             record.call_category,
             record.ivr_contained,
-            record.escalated_to_agent,
+            record.escalated,
             record.agent_id,
-            record.duration_seconds,
-            record.ivr_path])
-
-        self.session.execute("""
-            INSERT INTO calls_by_agent(
-                agent_id,
-                start_time,
-                call_id,
-                call_category,
-                duration_seconds
-                )
-                VALUES (%s,%s,%s,%s,%s)
-        """,[
-            record.agent_id,
-            record.start_time,
-            record.call_id,
-            record.call_category,
             record.duration_seconds])
+        
+        if record.agent_id is not None:
+            self.session.execute("""
+                INSERT INTO calls_by_agent(
+                    agent_id,
+                    start_time,
+                    call_id,
+                    call_category,
+                    duration_seconds
+                    )
+                    VALUES (%s,%s,%s,%s,%s)
+            """,[
+                record.agent_id,
+                record.start_time,
+                record.call_id,
+                record.call_category,
+                record.duration_seconds])
         
         self.session.execute("""
             INSERT INTO calls_by_category(
-                call_cateogory,
+                call_category,
                 call_date,
                 start_time,
                 call_id,
