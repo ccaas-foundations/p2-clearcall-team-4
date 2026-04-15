@@ -2,6 +2,7 @@ import json
 import random
 import uuid
 import os
+import argparse
 from dataclasses import dataclass
 from datetime import datetime, timezone, timedelta
 
@@ -43,7 +44,7 @@ class TranscriptGenerator:
             k=1
         )[0]
 
-    def generate_call_details(self,call_category):
+    def generate_call_details(self,call_category:str):
         ivr_contained = random.randint(1,100)
         if call_category == "SALES" or call_category =="TECHNICAL":
             ivr_contained= False
@@ -62,7 +63,7 @@ class TranscriptGenerator:
             agent_id = f"agent-{random.randint(1, 5)}"
         return ivr_contained,escalated_to_agent,agent_id
 
-    def generate_ivr_path(self,call_category,ivr_contained):
+    def generate_ivr_path(self,call_category:str,ivr_contained:list[str]):
         if call_category == "BILLING":
             if ivr_contained:
                 return ["WELCOME", "BILLING", "ACCOUNT_LOOKUP", "RESOLVED"]
@@ -104,19 +105,39 @@ class TranscriptGenerator:
             ivrPath=ivr_path
         )
 
-    def write_transcript(self,transcript):
-
-        #dir_path = f"./{self.transcript_directory}"
+    def write_transcript(self,transcript:CallTranscript):
         os.makedirs(self.transcript_directory, exist_ok=True)
 
         with open(f'{self.transcript_directory}/{transcript.callId}.json', 'w') as f:
             json.dump(transcript.__dict__, f, indent=4)
 
     def generate_transcripts(self):
-
         for _ in range(self.transcript_amount):
             transcript = self.build_transcript()
             self.write_transcript(transcript)
 
-generator = TranscriptGenerator(50, "transcripts")
-generator.generate_transcripts()
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Generate random call transcript JSON files.")
+    parser.add_argument("-n",
+                        "--num-transcripts",
+                        type=int,
+                        default=50,
+                        help="Number of transcripts to generate (default: 50)"
+                        )
+    parser.add_argument("-o",
+                        "--output-dir",
+                        type=str,
+                        default="transcripts",
+                        help="Output directory for transcript files (default: transcripts)",
+                        )
+    return parser.parse_args()
+
+def main():
+    args = parse_args()
+
+    generator = TranscriptGenerator(args.num_transcripts,args.output_dir)
+    generator.generate_transcripts()
+
+if __name__ == "__main__":
+    main()
