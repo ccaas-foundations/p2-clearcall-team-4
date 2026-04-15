@@ -6,7 +6,7 @@ from uuid import UUID
 
 @dataclass
 class CallRecord:
-    call_id: UUID
+    call_id: str
     call_date: datetime.date
     start_time: datetime
     end_time: datetime

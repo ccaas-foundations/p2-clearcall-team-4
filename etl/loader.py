@@ -1,3 +1,5 @@
+import uuid
+
 from cassandra.cluster import Cluster
 from model import CallRecord
 
@@ -34,7 +36,7 @@ class CassandraLoader:
         """, [
             record.call_date,
             record.start_time,
-            record.call_id,
+            uuid.UUID(record.call_id),
             record.call_category,
             record.ivr_contained,
             record.escalated,
@@ -54,7 +56,7 @@ class CassandraLoader:
             """,[
                 record.agent_id,
                 record.start_time,
-                record.call_id,
+                uuid.UUID(record.call_id),
                 record.call_category,
                 record.duration_seconds])
         
@@ -72,7 +74,7 @@ class CassandraLoader:
             record.call_category,
             record.call_date,
             record.start_time,
-            record.call_id,
+            uuid.UUID(record.call_id),
             record.ivr_contained,
             record.duration_seconds])
 
