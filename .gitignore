@@ -12,3 +12,5 @@
 /transcripts/
 # Idea folder
 .idea/
+#Virtual Environment
+venv311/
