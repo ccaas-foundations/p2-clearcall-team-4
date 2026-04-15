@@ -30,7 +30,7 @@ class CassandraLoader:
                 ivr_contained,
                 escalated,
                 agent_id,
-                duration_seconds
+                duration_sec
             )
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, [
@@ -50,7 +50,7 @@ class CassandraLoader:
                     start_time,
                     call_id,
                     call_category,
-                    duration_seconds
+                    duration_sec
                     )
                     VALUES (%s,%s,%s,%s,%s)
             """,[
@@ -67,7 +67,7 @@ class CassandraLoader:
                 start_time,
                 call_id,
                 ivr_contained,
-                duration_seconds
+                duration_sec
                 )
                 VALUES (%s,%s,%s,%s,%s, %s)
         """,[
