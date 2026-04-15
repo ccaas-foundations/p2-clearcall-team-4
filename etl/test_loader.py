@@ -6,13 +6,13 @@ from uuid import uuid4
 
 
 record = CallRecord(
-    call_id=uuid4(),
+    call_id="00bc3642-0427-4f58-a896-54e016648ab4",
     call_date=date.today(),
     start_time=datetime.now(),
     end_time=datetime.now(),
     call_category="BILLING",
     ivr_contained=True,
-    escalated=False,
+    escalated_to_agent=False,
     agent_id=None,
     duration_seconds=0,
     ivr_path=["main_menu", "billing"]
