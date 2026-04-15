@@ -63,7 +63,7 @@ class TranscriptGenerator:
             agent_id = f"agent-{random.randint(1, 5)}"
         return ivr_contained,escalated_to_agent,agent_id
 
-    def generate_ivr_path(self,call_category:str,ivr_contained:list[str]):
+    def generate_ivr_path(self,call_category:str,ivr_contained:bool):
         if call_category == "BILLING":
             if ivr_contained:
                 return ["WELCOME", "BILLING", "ACCOUNT_LOOKUP", "RESOLVED"]
