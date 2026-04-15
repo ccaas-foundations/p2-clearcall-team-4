@@ -1,0 +1,148 @@
+Connected to Test Cluster at 127.0.0.1:9042
+[cqlsh 6.2.0 | Cassandra 5.0.7 | CQL spec 3.4.7 | Native protocol v5]
+Use HELP for help.
+cqlsh> CREATE KEYSPACE IF NOT EXISTS clearcall
+   ... WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+cqlsh> USE clearcall;
+cqlsh:clearcall> CREATE TABLE IF NOT EXISTS calls_by_date (
+             ...     call_date date,
+             ...     start_time timestamp,
+             ...     call_id text,
+             ...     end_time timestamp,
+             ...     call_category text,
+             ...     ivr_contained boolean,
+             ...     escalated_to_agent boolean,
+             ...     agent_id text,
+             ...     duration_seconds int,
+             ...     ivr_path list<text>,
+             ...     PRIMARY KEY ((call_date), start_time, call_id)
+             ... );
+cqlsh:clearcall> USE clearcall;
+cqlsh:clearcall> SELECT * FROM calls_by_date;
+
+ call_date  | start_time                      | call_id       | agent_id | call_category | duration_seconds | end_time                        | escalated_to_agent | ivr_contained | ivr_path
+------------+---------------------------------+---------------+----------+---------------+------------------+---------------------------------+--------------------+---------------+--------------------------
+ 2026-04-14 | 2026-04-14 09:15:24.495000+0000 | test-call-001 |     null |       BILLING |                0 | 2026-04-14 09:15:24.495000+0000 |              False |          True | ['main_menu', 'billing']
+
+(1 rows)
+cqlsh:clearcall> %                                                                                                   jasimadnan@Jasims-MacBook-Air ~ % docker exec -it cassandra cqlsh
+
+ATTENTION: All commands will be saved to history file: /root/.cassandra/cqlsh_history
+This may include sensitive information such as passwords.
+To disable history, use --disable-history or set 'disabled = true' in the [history] section of cqlshrc.
+See https://cassandra.apache.org/doc/latest/tools/cqlsh.html for more information.
+
+Connected to Test Cluster at 127.0.0.1:9042
+[cqlsh 6.2.0 | Cassandra 5.0.7 | CQL spec 3.4.7 | Native protocol v5]
+Use HELP for help.
+cqlsh> CREATE TABLE IF NOT EXISTS calls_by_date (
+   ...              ...     call_date date,
+   ...              ...     start_time timestamp,
+   ...              ...     call_id text,
+   ...              ...     end_time timestamp,
+   ...              ...     call_category text,
+   ...              ...     ivr_contained boolean,
+   ...              ...     escalated_to_agent boolean,
+   ...              ...     agent_id text,
+   ...              ...     duration_seconds int,
+   ...              ...     ivr_path list<text>,
+   ...              ...     PRIMARY KEY ((call_date), start_time, call_id)
+   ...              ... );//dfewfew
+SyntaxException: line 2:13 no viable alternative at input '..' (...IF NOT EXISTS calls_by_date (             [..]...)
+cqlsh> CREATE TABLE IF NOT EXISTS calls_by_agent (
+   ... agent_id text,
+   ... start_time timestamp,
+   ... call_id text,
+   ... call_category text,
+   ... duration_seconds int,
+   ... 
+cqlsh> CREATE TABLE IF NOT EXISTS calls_by_agent (
+   ... agent_id text,
+   ... start_time timestamp,
+   ... call_id 
+cqlsh> DROP TABLE calls_by_date;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="No keyspace has been specified. USE a keyspace, or explicitly specify keyspace.tablename"
+cqlsh> USE clearcall
+   ... DROP TABLE calls_by_date;
+Improper USE command.
+cqlsh> USE clearcall;
+cqlsh:clearcall> DROP TABLE calls_by_date;
+cqlsh:clearcall> CREATE TABLE IF NOT EXISTS calls_by_date (
+             ... call_date date,
+             ... start_time timestamp,
+             ... call_id uuid,
+             ... call_category text,
+             ... ivr_contained boolean,
+             ... escalated boolean,
+             ... agent_id text,
+             ... duration_seconds int,
+             ... PRIMARY KET (call_date, start_time, call_id)
+             ... ) WITH CLUSTERING ORDER BY (start_time DESC);
+SyntaxException: line 10:8 mismatched input 'KET' expecting K_KEY (...text,duration_seconds int,PRIMARY [KET]...)
+cqlsh:clearcall> CREATE TABLE IF NOT EXISTS calls_by_date (
+             ... call_date date,
+             ... start_time timestamp,
+             ... call_id uuid,
+             ... call_category text,
+             ... ivr_contained boolean,
+             ... escalated boolean,
+             ... agent_id text,
+             ... duration_seconds int,
+             ... PRIMARY KEY (call_date, start_time, call_id)
+             ... ) WITH CLUSTERING ORDER BY (start_time DESC);
+cqlsh:clearcall> CREATE TABLE IF NOT EXISTS calls_by_agent (
+             ... agent_id text,
+             ... start_time timestamp,
+             ... call_id uuid,
+             ... call_category text,
+             ... duration_seconds int,
+             ... PRIMARY KEY (agent_id, start_time, call_id)
+             ... ) WITH CLUSTERING ORDER BY (start_time DESC);
+cqlsh:clearcall> CREATE TABLE IF NOT EXISTS calls_by_category (
+             ... call_category text,
+             ... call_date date,
+             ... start_time timestamp,
+             ... call_id uuid,
+             ... ivr_contained boolean,
+             ... duration_seconds int,
+             ... PRIMARY KEY (call_category, call_date, start_time, call_id)
+             ... ) WITH CLUSTERING ORDER BY (call_date DESC, start_time DESC);
+cqlsh:clearcall> SELECT * FROM calls_by_date
+             ... ;
+
+ call_date  | start_time                      | call_id                              | agent_id | call_category | duration_seconds | escalated | ivr_contained
+------------+---------------------------------+--------------------------------------+----------+---------------+------------------+-----------+---------------
+ 2026-04-15 | 2026-04-15 12:50:45.238000+0000 | 49d81eb9-4436-404e-b1f5-5c5acaafb19a |     null |       BILLING |                0 |     False |          True
+
+(1 rows)
+cqlsh:clearcall> SELECT * FROM calls_by_agent;
+
+ agent_id | start_time | call_id | call_category | duration_seconds
+----------+------------+---------+---------------+------------------
+
+(0 rows)
+cqlsh:clearcall> SELECT * FROM calls_by_category;
+
+ call_category | call_date  | start_time                      | call_id                              | duration_seconds | ivr_contained
+---------------+------------+---------------------------------+--------------------------------------+------------------+---------------
+       BILLING | 2026-04-15 | 2026-04-15 12:50:45.238000+0000 | 49d81eb9-4436-404e-b1f5-5c5acaafb19a |                0 |          True
+
+(1 rows)
+cqlsh:clearcall> SELECT * FROM calls_by_date;
+
+ call_date  | start_time                      | call_id                              | agent_id | call_category | duration_seconds | escalated | ivr_contained
+------------+---------------------------------+--------------------------------------+----------+---------------+------------------+-----------+---------------
+ 2026-04-15 | 2026-04-15 12:58:17.829000+0000 | 766bb69d-6e83-44cf-bc80-90e8f4a31028 |     null |       BILLING |                0 |     False |          True
+ 2026-04-15 | 2026-04-15 12:50:45.238000+0000 | 49d81eb9-4436-404e-b1f5-5c5acaafb19a |     null |       BILLING |                0 |     False |          True
+
+(2 rows)
+cqlsh:clearcall> SELECT * FROM calls_by_date;
+
+ call_date  | start_time                      | call_id                              | agent_id | call_category | duration_seconds | escalated | ivr_contained
+------------+---------------------------------+--------------------------------------+----------+---------------+------------------+-----------+---------------
+ 2026-04-15 | 2026-04-15 13:07:56.876000+0000 | df003ddf-0f36-4883-a676-d427a2f5bc91 |     null |       BILLING |                0 |     False |          True
+ 2026-04-15 | 2026-04-15 12:58:17.829000+0000 | 766bb69d-6e83-44cf-bc80-90e8f4a31028 |     null |       BILLING |                0 |     False |          True
+ 2026-04-15 | 2026-04-15 12:50:45.238000+0000 | 49d81eb9-4436-404e-b1f5-5c5acaafb19a |     null |       BILLING |                0 |     False |          True
+
+(3 rows)
+cqlsh:clearcall> 
