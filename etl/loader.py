@@ -39,7 +39,7 @@ class CassandraLoader:
             uuid.UUID(record.call_id),
             record.call_category,
             record.ivr_contained,
-            record.escalated,
+            record.escalated_to_agent,
             record.agent_id,
             record.duration_seconds])
         
