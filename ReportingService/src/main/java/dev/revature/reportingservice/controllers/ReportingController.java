@@ -1,6 +1,7 @@
 package dev.revature.reportingservice.controllers;
 
 import dev.revature.reportingservice.models.CallsByAgents;
+import dev.revature.reportingservice.models.CallsByCategory;
 import dev.revature.reportingservice.models.CallsByDate;
 import dev.revature.reportingservice.services.CallReportingService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ public class ReportingController {
         this.callReportingService = callReportingService;
     }
 
+
+
     @GetMapping("/analytics/agents/{agentId}/calls")
     public List<CallsByAgents> getCallsByAgent(@PathVariable String agentId){
         return null;
@@ -31,12 +34,13 @@ public class ReportingController {
     }
 
     @GetMapping("/analytics/categories")
-    public List<Double> getCallCountAndAverage(@PathVariable String agentId){
+    public List<> getCallCountAndAverage(){
         return null;
     }
 
     @GetMapping("/analytics/calls")
-    public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant date){
+    public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant callDate){
+
         return null;
     }
 
