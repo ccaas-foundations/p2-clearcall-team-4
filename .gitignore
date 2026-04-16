@@ -15,4 +15,5 @@
 #Virtual Environment
 venv311/
 #pycache
-*/__pycache__/*
+__pycache__
+etl/__pycache__
