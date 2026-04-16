@@ -18,7 +18,7 @@ public class CallsByAgentKey implements Serializable {
     @PrimaryKeyColumn(name="start_time",ordinal = 1, type = PrimaryKeyType.CLUSTERED)
     private Instant startTime;
 
-    @PrimaryKeyColumn(name = "call_id", ordinal = 2, type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name = "call_id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     private String callId;
 
     public CallsByAgentKey() {

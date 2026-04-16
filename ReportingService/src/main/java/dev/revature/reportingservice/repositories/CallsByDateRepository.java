@@ -7,9 +7,10 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface CallsByDateRepository extends CassandraRepository<CallsByDate, CallsByDateKey> {
-    List<CallsByDate> findByKeyCallDate(Instant callDate);
+    List<CallsByDate> findByKeyCallDate(LocalDate callDate);
 }

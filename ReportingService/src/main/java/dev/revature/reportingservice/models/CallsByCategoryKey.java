@@ -7,6 +7,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class CallsByCategoryKey implements Serializable {
     private String callCategory;
 
     @PrimaryKeyColumn(name="call_date",ordinal = 1, type = PrimaryKeyType.CLUSTERED)
-    private Instant callDate;
+    private LocalDate callDate;
 
     @PrimaryKeyColumn(name = "start_time", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     private Instant startTime;
@@ -28,7 +29,7 @@ public class CallsByCategoryKey implements Serializable {
     public CallsByCategoryKey() {
     }
 
-    public CallsByCategoryKey(Instant callDate, String callCategory, Instant startTime, UUID callId) {
+    public CallsByCategoryKey(LocalDate callDate, String callCategory, Instant startTime, UUID callId) {
         this.callDate = callDate;
         this.callCategory = callCategory;
         this.startTime = startTime;
@@ -43,11 +44,11 @@ public class CallsByCategoryKey implements Serializable {
         this.callCategory = callCategory;
     }
 
-    public Instant getCallDate() {
+    public LocalDate getCallDate() {
         return callDate;
     }
 
-    public void setCallDate(Instant callDate) {
+    public void setCallDate(LocalDate callDate) {
         this.callDate = callDate;
     }
 

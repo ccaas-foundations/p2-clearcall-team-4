@@ -10,6 +10,7 @@ import dev.revature.reportingservice.repositories.CallsByDateRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CallReportingService {
         this.callsByCategoryRepository = callsByCategoryRepository;
     }
 
-    public List<CallsByDate> getCallsByDate(Instant date) {
+    public List<CallsByDate> getCallsByDate(LocalDate date) {
         return callsByDateRepository.findByKeyCallDate(date);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class ReportingController {
     }
 
     @GetMapping("/analytics/calls")
-    public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant callDate){
+    public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) LocalDate callDate){
         return callReportingService.getCallsByDate(callDate);
     }
 
