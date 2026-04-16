@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Generated transcripts
+/etl/transcripts/
+# Idea folder
+.idea/
+#Virtual Environment
+venv311/
+#pycache
+__pycache__
+etl/__pycache__
