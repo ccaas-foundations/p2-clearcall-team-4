@@ -1,5 +1,6 @@
 package dev.revature.reportingservice.controllers;
 
+import dev.revature.reportingservice.dtos.CategorySummary;
 import dev.revature.reportingservice.models.CallsByAgents;
 import dev.revature.reportingservice.models.CallsByCategory;
 import dev.revature.reportingservice.models.CallsByDate;
@@ -25,23 +26,22 @@ public class ReportingController {
 
     @GetMapping("/analytics/agents/{agentId}/calls")
     public List<CallsByAgents> getCallsByAgent(@PathVariable String agentId){
-        return null;
+        return callReportingService.getCallsByAgent(agentId);
     }
 
     @GetMapping("/analytics/agents/{agentId}/handle-time")
     public double getAverageAgentHandleTime(@PathVariable String agentId){
-        return 0.0;
+        return callReportingService.getAverageHandleTime(agentId);
     }
 
     @GetMapping("/analytics/categories")
-    public List<> getCallCountAndAverage(){
-        return null;
+    public List<CategorySummary> getCallCountAndAverage(){
+        return callReportingService.getCallCountAndAverage();
     }
 
     @GetMapping("/analytics/calls")
     public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant callDate){
-
-        return null;
+        return callReportingService.getCallsByDate(callDate);
     }
 
 }
