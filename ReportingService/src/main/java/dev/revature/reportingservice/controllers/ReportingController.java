@@ -5,6 +5,7 @@ import dev.revature.reportingservice.models.CallsByDate;
 import dev.revature.reportingservice.services.CallReportingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
@@ -34,8 +35,8 @@ public class ReportingController {
         return null;
     }
 
-    @GetMapping("/analytics/calls?date={date}")
-    public List<CallsByDate> getCallsByDate(@PathVariable Instant callDate){
+    @GetMapping("/analytics/calls")
+    public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant date){
         return null;
     }
 
