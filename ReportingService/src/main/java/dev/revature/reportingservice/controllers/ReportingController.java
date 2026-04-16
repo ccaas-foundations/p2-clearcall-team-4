@@ -38,7 +38,7 @@ public class ReportingController {
         return null;
     }
 
-    @GetMapping("/analytics/calls?date={date}")
+    @GetMapping("/analytics/calls")
     public List<CallsByDate> getCallsByDate(@RequestParam(name = "date",required = true) Instant callDate){
 
         return null;
