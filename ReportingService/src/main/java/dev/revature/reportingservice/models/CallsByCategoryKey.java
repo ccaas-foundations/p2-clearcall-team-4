@@ -2,16 +2,16 @@ package dev.revature.reportingservice.models;
 
 
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
 @PrimaryKeyClass
-public class CallsByCategoryKey {
+public class CallsByCategoryKey implements Serializable {
 
     @PrimaryKeyColumn(name="call_category",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
     private String callCategory;
