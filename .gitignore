@@ -48,6 +48,7 @@ build/
 .idea/
 #Virtual Environment
 venv311/
+venv/
 #pycache
 __pycache__
 etl/__pycache__
