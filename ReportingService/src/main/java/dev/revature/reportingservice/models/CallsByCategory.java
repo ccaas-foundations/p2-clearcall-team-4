@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CallsByCategory {
 
     @PrimaryKey
-    private CallsByCategoryKey callsByCategoryKey;
+    private CallsByCategoryKey key;
 
     @Column("ivr_contained")
     private boolean iveContained;
@@ -23,17 +23,17 @@ public class CallsByCategory {
     }
 
     public CallsByCategory(CallsByCategoryKey callsByCategoryKey, boolean iveContained, int durationSec) {
-        this.callsByCategoryKey = callsByCategoryKey;
+        this.key = callsByCategoryKey;
         this.iveContained = iveContained;
         this.durationSec = durationSec;
     }
 
-    public CallsByCategoryKey getCallsByCategoryKey() {
-        return callsByCategoryKey;
+    public CallsByCategoryKey getKey() {
+        return key;
     }
 
-    public void setCallsByCategoryKey(CallsByCategoryKey callsByCategoryKey) {
-        this.callsByCategoryKey = callsByCategoryKey;
+    public void setKey(CallsByCategoryKey key) {
+        this.key = key;
     }
 
     public boolean isIveContained() {
@@ -56,18 +56,18 @@ public class CallsByCategory {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CallsByCategory that = (CallsByCategory) o;
-        return iveContained == that.iveContained && durationSec == that.durationSec && Objects.equals(callsByCategoryKey, that.callsByCategoryKey);
+        return iveContained == that.iveContained && durationSec == that.durationSec && Objects.equals(key, that.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callsByCategoryKey, iveContained, durationSec);
+        return Objects.hash(key, iveContained, durationSec);
     }
 
     @Override
     public String toString() {
         return "CallsByCategory{" +
-                "callsByCategoryKey=" + callsByCategoryKey +
+                "callsByCategoryKey=" + key +
                 ", iveContained=" + iveContained +
                 ", durationSec=" + durationSec +
                 '}';

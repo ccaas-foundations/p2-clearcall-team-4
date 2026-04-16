@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CallsByAgents {
 
     @PrimaryKey
-    private CallsByAgentKey callsByAgentKey;
+    private CallsByAgentKey key;
 
     @Column("call_category")
     private String callCategory;
@@ -22,7 +22,7 @@ public class CallsByAgents {
     @Override
     public String toString() {
         return "CallsByAgents{" +
-                "callsByAgentKey=" + callsByAgentKey +
+                "callsByAgentKey=" + key +
                 ", callCategory='" + callCategory + '\'' +
                 ", durationSec=" + durationSec +
                 '}';
@@ -32,20 +32,20 @@ public class CallsByAgents {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CallsByAgents that = (CallsByAgents) o;
-        return durationSec == that.durationSec && Objects.equals(callsByAgentKey, that.callsByAgentKey) && Objects.equals(callCategory, that.callCategory);
+        return durationSec == that.durationSec && Objects.equals(key, that.key) && Objects.equals(callCategory, that.callCategory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callsByAgentKey, callCategory, durationSec);
+        return Objects.hash(key, callCategory, durationSec);
     }
 
-    public CallsByAgentKey getCallsByAgentKey() {
-        return callsByAgentKey;
+    public CallsByAgentKey getKey() {
+        return key;
     }
 
-    public void setCallsByAgentKey(CallsByAgentKey callsByAgentKey) {
-        this.callsByAgentKey = callsByAgentKey;
+    public void setKey(CallsByAgentKey key) {
+        this.key = key;
     }
 
     public String getCallCategory() {
@@ -68,7 +68,7 @@ public class CallsByAgents {
     }
 
     public CallsByAgents(CallsByAgentKey callsByAgentKey, String callCategory, int durationSec) {
-        this.callsByAgentKey = callsByAgentKey;
+        this.key = callsByAgentKey;
         this.callCategory = callCategory;
         this.durationSec = durationSec;
     }

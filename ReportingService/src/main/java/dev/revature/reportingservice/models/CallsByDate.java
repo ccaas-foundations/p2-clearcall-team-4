@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CallsByDate {
 
     @PrimaryKey
-    private CallsByDateKey callsByDateKey;
+    private CallsByDateKey key;
 
     @Column("call_category")
     private String callCategory;
@@ -29,12 +29,12 @@ public class CallsByDate {
     public CallsByDate() {
     }
 
-    public CallsByDateKey getCallsByDateKey() {
-        return callsByDateKey;
+    public CallsByDateKey getKey() {
+        return key;
     }
 
-    public void setCallsByDateKey(CallsByDateKey callsByDateKey) {
-        this.callsByDateKey = callsByDateKey;
+    public void setKey(CallsByDateKey key) {
+        this.key = key;
     }
 
     public String getCallCategory() {
@@ -81,16 +81,16 @@ public class CallsByDate {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CallsByDate that = (CallsByDate) o;
-        return ivrContained == that.ivrContained && escalated == that.escalated && durationSec == that.durationSec && Objects.equals(callsByDateKey, that.callsByDateKey) && Objects.equals(callCategory, that.callCategory) && Objects.equals(agentId, that.agentId);
+        return ivrContained == that.ivrContained && escalated == that.escalated && durationSec == that.durationSec && Objects.equals(key, that.key) && Objects.equals(callCategory, that.callCategory) && Objects.equals(agentId, that.agentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callsByDateKey, callCategory, ivrContained, escalated, agentId, durationSec);
+        return Objects.hash(key, callCategory, ivrContained, escalated, agentId, durationSec);
     }
 
     public CallsByDate(CallsByDateKey callsByDateKey, String callCategory, boolean ivrContained, boolean escalated, String agentId, int durationSec) {
-        this.callsByDateKey = callsByDateKey;
+        this.key = callsByDateKey;
         this.callCategory = callCategory;
         this.ivrContained = ivrContained;
         this.escalated = escalated;
@@ -101,7 +101,7 @@ public class CallsByDate {
     @Override
     public String toString() {
         return "CallsByDate{" +
-                "callsByDateKey=" + callsByDateKey +
+                "callsByDateKey=" + key +
                 ", CallCategory='" + callCategory + '\'' +
                 ", IvrContained=" + ivrContained +
                 ", escalated=" + escalated +
