@@ -12,14 +12,14 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 @PrimaryKeyClass
 public class CallsByDateKey implements Serializable {
 
-    @PrimaryKeyColumn(name = "call_date", type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name = "call_date",ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     private LocalDate callDate;
 
-    @PrimaryKeyColumn(name = "start_time", ordinal = 0, type = PrimaryKeyType.CLUSTERED)
-    private Instant startTime;
-
-    @PrimaryKeyColumn(name = "call_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(name = "call_id", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     private UUID callId;
+
+    @PrimaryKeyColumn(name = "start_time", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
+    private Instant startTime;
 
     // Default constructor (required)
     public CallsByDateKey() {}
