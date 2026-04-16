@@ -9,8 +9,10 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 # Generated transcripts
-/transcripts/
+/etl/transcripts/
 # Idea folder
 .idea/
 #Virtual Environment
 venv311/
+#pycache
+*/__pycache__/*

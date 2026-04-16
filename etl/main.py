@@ -9,7 +9,7 @@ def parse_args():
     parser.add_argument("-i",
                         "--input",
                         type=str,
-                        default="../transcripts",
+                        default="./transcripts",
                         help="Input directory for transcript files (default: transcripts)"
                         )
     parser.add_argument("-H",
@@ -39,7 +39,6 @@ def main():
     for transcript in transcripts:
         record = transformer.transform_transcript(transcript)
         loader.load(record)
-        print(record)
 
     loader.close()
 
