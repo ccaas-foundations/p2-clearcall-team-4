@@ -1,0 +1,15 @@
+{
+    "callId": "bbe27f4d-17fc-47cf-b93f-e7d1112d290a",
+    "startTime": "2026-04-24T07:03:05Z",
+    "endTime": "2026-04-24T07:11:19Z",
+    "callCategory": "BILLING",
+    "ivrContained": true,
+    "escalatedToAgent": false,
+    "agentId": "None",
+    "ivrPath": [
+        "WELCOME",
+        "BILLING",
+        "ACCOUNT_LOOKUP",
+        "RESOLVED"
+    ]
+}

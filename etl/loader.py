@@ -43,7 +43,7 @@ class CassandraLoader:
             record.agent_id,
             record.duration_seconds])
         
-        if record.agent_id is not None:
+        if record.agent_id is not "None":
             self.session.execute("""
                 INSERT INTO calls_by_agent(
                     agent_id,

@@ -1,0 +1,15 @@
+{
+    "callId": "d1fa5052-7b35-4038-8f12-4022dcd9e152",
+    "startTime": "2026-04-28T08:08:19Z",
+    "endTime": "2026-04-28T08:17:55Z",
+    "callCategory": "GENERAL",
+    "ivrContained": false,
+    "escalatedToAgent": true,
+    "agentId": "agent-1",
+    "ivrPath": [
+        "WELCOME",
+        "GENERAL_INQUIRY",
+        "FAQ",
+        "UNRESOLVED"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "callId": "74ffca65-d073-4f19-9865-61e0bab9d8a7",
+    "startTime": "2026-04-16T03:13:46Z",
+    "endTime": "2026-04-16T03:17:23Z",
+    "callCategory": "TECHNICAL",
+    "ivrContained": false,
+    "escalatedToAgent": true,
+    "agentId": "agent-2",
+    "ivrPath": [
+        "WELCOME",
+        "TECH_SUPPORT",
+        "DEVICE_TROUBLESHOOTING",
+        "UNRESOLVED"
+    ]
+}
