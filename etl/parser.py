@@ -1,7 +1,21 @@
 import json
+import logging
 from pathlib import Path
 import jsonschema
 from jsonschema import validate
+
+# logging configuration
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    handlers=[
+        logging.FileHandler("etl_parser.log"),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
+
 
 class TranscriptParser:
     def __init__(self, input_dir:str):
@@ -30,7 +44,7 @@ class TranscriptParser:
     def validate_transcripts(self):
         valid_transcripts = []
         if not self.input_dir.exists():
-            print(f"Input directory does not exist: {self.input_dir}")
+            logger.error(f"Input directory does not exist: {self.input_dir}")
             return valid_transcripts
         for file_path in self.input_dir.glob("*.json"):
             try:
@@ -39,13 +53,13 @@ class TranscriptParser:
 
                 validate(instance=python_dict, schema=self.schema)
 
-                print(f"{file_path.name}: JSON data is valid.")
+                logger.info(f"{file_path.name}: JSON data is valid.")
                 valid_transcripts.append(python_dict)
 
             except json.JSONDecodeError as e:
-                print(f"{file_path.name}: invalid JSON - {e}")
+                logger.warning(f"{file_path.name}: invalid JSON - {e}")
             except jsonschema.exceptions.ValidationError as e:
-                print(f"{file_path.name}: JSON data is invalid: {e.message}")
+                logger.warning(f"{file_path.name}: JSON data is invalid - {e.message}")
             except Exception as e:
-                print(f"{file_path.name}: unexpected error - {e}")
+                logger.error(f"{file_path.name}: unexpected error - {e}")
         return valid_transcripts
