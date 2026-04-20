@@ -43,22 +43,21 @@ class CassandraLoader:
             record.agent_id,
             record.duration_seconds])
         
-        if record.agent_id is not None:
-            self.session.execute("""
-                INSERT INTO calls_by_agent(
-                    agent_id,
-                    start_time,
-                    call_id,
-                    call_category,
-                    duration_sec
-                    )
-                    VALUES (%s,%s,%s,%s,%s)
-            """,[
-                record.agent_id,
-                record.start_time,
-                uuid.UUID(record.call_id),
-                record.call_category,
-                record.duration_seconds])
+        self.session.execute("""
+            INSERT INTO calls_by_agent(
+                agent_id,
+                start_time,
+                call_id,
+                call_category,
+                duration_sec
+                )
+                VALUES (%s,%s,%s,%s,%s)
+        """,[
+            record.agent_id,
+            record.start_time,
+            uuid.UUID(record.call_id),
+            record.call_category,
+            record.duration_seconds])
         
         self.session.execute("""
             INSERT INTO calls_by_category(
